@@ -205,7 +205,24 @@ onMounted(() => {
   box-shadow: 2px 2px 3px rgb(0 0 0 / 20%);
 
   button {
+    box-sizing: border-box;
+    width: 100%;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 24px;
     color: inherit;
+    background-color: #eee;
+    border: none;
+    border-radius: 6px;
+    transition: all 0.5s;
+  }
+
+  button:disabled {
+    color: #b1b1b1;
+    background-color: #f6f6f6;
   }
 }
 
