@@ -1,0 +1,11 @@
+{
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "editor.formatOnSave": true,
+  "scss.validate": false,
+  "stylelint.validate": ["css", "scss"],
+  "cSpell.words": ["stylelint", "Zongzi"]
+}
