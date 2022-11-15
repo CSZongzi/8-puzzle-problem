@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
   <div class="author-card">
     <img src="/avatar.png" />

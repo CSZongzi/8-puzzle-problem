@@ -6,6 +6,6 @@
   },
   "editor.formatOnSave": true,
   "scss.validate": false,
-  "stylelint.validate": ["css", "scss"],
-  "cSpell.words": ["stylelint", "Zongzi"]
+  "stylelint.validate": ["css", "scss", "vue"],
+  "cSpell.words": ["CUIT", "mutables", "stylelint", "Zongzi"]
 }
