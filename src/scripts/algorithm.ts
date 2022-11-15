@@ -1,5 +1,4 @@
-import { Direction, type GlobalState } from '@/types';
-import { inject } from 'vue';
+import { Direction } from '@/types';
 
 /** Simple swap function for string */
 const swap = (str: string, a: number, b: number) => {
@@ -11,15 +10,11 @@ const swap = (str: string, a: number, b: number) => {
 };
 
 export const useAlgorithm = () => {
-  const state = inject('state') as GlobalState;
-
   /** Breadth-first search */
-  const bfs = () => {
+  const bfs = (initial: string, target: string, lucky: string) => {
     // Get start time
     const startTime = new Date();
 
-    const { initial, target } = state;
-    const lucky = state.lucky.toString(10);
     const opened = new Array<string>();
     const closed = new Map<string, string>();
     const solution = new Array<string>();
@@ -85,7 +80,7 @@ export const useAlgorithm = () => {
     };
   };
 
-  const aStar = () => {
+  const aStar = (initial: string, target: string, lucky: string) => {
     /** State Node */
     class State {
       /** Current state value */
@@ -131,8 +126,6 @@ export const useAlgorithm = () => {
     // Get start time
     const startTime = new Date();
 
-    const { initial, target } = state;
-    const lucky = state.lucky.toString(10);
     const opened = new Array<State>();
     const closed = new Map<string, string>();
     const solution = new Array<string>();

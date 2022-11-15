@@ -71,7 +71,11 @@ const handleUninformedSearch = async () => {
 
   // Wait 10ms for Vue.js state updating
   setTimeout(() => {
-    const { solution, spaceConsumption, timeConsumption } = bfs();
+    const { solution, spaceConsumption, timeConsumption } = bfs(
+      state.initial,
+      state.target,
+      state.lucky.toString(10)
+    );
     state.spaceConsumption = spaceConsumption;
     state.timeConsumption = timeConsumption;
     state.steps = solution.length - 1;
@@ -91,7 +95,11 @@ const handleAStarSearch = async () => {
 
   // Wait 10ms for Vue.js state updating
   setTimeout(() => {
-    const { solution, spaceConsumption, timeConsumption } = aStar();
+    const { solution, spaceConsumption, timeConsumption } = aStar(
+      state.initial,
+      state.target,
+      state.lucky.toString(10)
+    );
     state.spaceConsumption = spaceConsumption;
     state.timeConsumption = timeConsumption;
     state.steps = solution.length - 1;
