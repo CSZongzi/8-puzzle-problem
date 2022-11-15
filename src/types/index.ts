@@ -13,8 +13,7 @@ export enum Stage {
   ManualControl,
   UninformedSearching,
   AStarSearching,
-  UninformedSearchEnd,
-  AStarSearchEnd,
+  SearchEnd,
   PlayingSolution,
 }
 

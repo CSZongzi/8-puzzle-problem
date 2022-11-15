@@ -14,9 +14,7 @@ const showSolved = computed(() => {
 });
 
 const showPlaySolution = computed(() => {
-  if (state.stage === Stage.UninformedSearchEnd && state.solution.length > 0) {
-    return true;
-  } else if (state.stage === Stage.AStarSearchEnd && state.solution.length > 0) {
+  if (state.stage === Stage.SearchEnd && state.solution.length > 0) {
     return true;
   } else {
     return false;
@@ -44,9 +42,7 @@ const handlePlaySolution = async () => {
 const showNotSolvable = computed(() => {
   if (state.stage === Stage.NotSolvable) {
     return true;
-  } else if (state.stage === Stage.UninformedSearchEnd && state.steps === -1) {
-    return true;
-  } else if (state.stage === Stage.AStarSearchEnd && state.steps === -1) {
+  } else if (state.stage === Stage.SearchEnd && state.steps === -1) {
     return true;
   } else {
     return false;

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useActions } from '@/scripts/actions';
-import { useAlgorithm } from '@/scripts/algorithm';
+import AlgorithmWorker from '@/scripts/algorithm?worker';
 import { useImage } from '@/scripts/image';
 import { useMutables } from '@/scripts/mutables';
 import { Direction, Stage, type GlobalState } from '@/types';
@@ -29,7 +29,18 @@ const {
   luckyDogDisabled,
   uploadBackgroundDisabled,
 } = useMutables();
-const { bfs, aStar } = useAlgorithm();
+
+// Compute with Web Worker
+const worker = new AlgorithmWorker();
+worker.onmessage = (e) => {
+  const { solution, spaceConsumption, timeConsumption } = e.data;
+
+  state.spaceConsumption = spaceConsumption;
+  state.timeConsumption = timeConsumption;
+  state.steps = solution.length - 1;
+  state.solution = solution.reverse();
+  state.stage = Stage.SearchEnd;
+};
 
 const handleInitialStateInput = () => {
   if (puzzleStringValidator(state.initial)) {
@@ -69,21 +80,7 @@ const handleUninformedSearch = async () => {
 
   state.stage = Stage.UninformedSearching;
 
-  // Wait 10ms for Vue.js state updating
-  setTimeout(() => {
-    const { solution, spaceConsumption, timeConsumption } = bfs(
-      state.initial,
-      state.target,
-      state.lucky.toString(10)
-    );
-    state.spaceConsumption = spaceConsumption;
-    state.timeConsumption = timeConsumption;
-    state.steps = solution.length - 1;
-    solution.reverse();
-
-    state.solution = solution;
-    state.stage = Stage.UninformedSearchEnd;
-  }, 10);
+  worker.postMessage(['bfs', state.initial, state.target, state.lucky.toString(10)]);
 };
 
 const handleAStarSearch = async () => {
@@ -93,21 +90,7 @@ const handleAStarSearch = async () => {
 
   state.stage = Stage.AStarSearching;
 
-  // Wait 10ms for Vue.js state updating
-  setTimeout(() => {
-    const { solution, spaceConsumption, timeConsumption } = aStar(
-      state.initial,
-      state.target,
-      state.lucky.toString(10)
-    );
-    state.spaceConsumption = spaceConsumption;
-    state.timeConsumption = timeConsumption;
-    state.steps = solution.length - 1;
-    solution.reverse();
-
-    state.solution = solution;
-    state.stage = Stage.AStarSearchEnd;
-  }, 10);
+  worker.postMessage(['aStar', state.initial, state.target, state.lucky.toString(10)]);
 };
 
 const handleManualControl = () => {

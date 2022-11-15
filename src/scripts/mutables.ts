@@ -20,11 +20,7 @@ export const useMutables = () => {
   });
 
   const searchConsumption = computed(() => {
-    if (
-      state.stage === Stage.UninformedSearchEnd ||
-      state.stage === Stage.AStarSearchEnd ||
-      state.stage === Stage.PlayingSolution
-    ) {
+    if (state.stage === Stage.SearchEnd || state.stage === Stage.PlayingSolution) {
       return `${state.spaceConsumption.toString(10)} / ${state.timeConsumption.toFixed(1)}s`;
     } else if (state.stage === Stage.UninformedSearching || state.stage === Stage.AStarSearching) {
       return 'Searching...';
@@ -35,8 +31,7 @@ export const useMutables = () => {
 
   const solutionSteps = computed(() => {
     if (
-      state.stage === Stage.UninformedSearchEnd ||
-      state.stage === Stage.AStarSearchEnd ||
+      state.stage === Stage.SearchEnd ||
       state.stage === Stage.PlayingSolution ||
       state.stage === Stage.ManualControl
     ) {
@@ -62,11 +57,7 @@ export const useMutables = () => {
   });
 
   const searchDisabled = computed(() => {
-    if (
-      state.stage === Stage.Solvable ||
-      state.stage === Stage.UninformedSearchEnd ||
-      state.stage === Stage.AStarSearchEnd
-    ) {
+    if (state.stage === Stage.Solvable || state.stage === Stage.SearchEnd) {
       return false;
     } else {
       return true;
